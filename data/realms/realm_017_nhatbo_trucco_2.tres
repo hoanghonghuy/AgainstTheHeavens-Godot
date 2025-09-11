@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://dlgacjssi5bcj"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_m02xc"]
+
+[resource]
+script = ExtResource("1_m02xc")
+realmName = "Trúc Cơ Trung Kỳ"
+requiredCp = 45000.0
+bonusMaxSe = 200
+bonusAttack = 70
+bonusDefense = 35

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://b6uqeuaxg6tah"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_oy7xx"]
+
+[resource]
+script = ExtResource("1_oy7xx")
+realmName = "Thiên Nhân Đệ 5 Suy"
+requiredCp = 1.6e+14
+bonusMaxSe = 227812500
+bonusAttack = 113906250
+bonusDefense = 56953125

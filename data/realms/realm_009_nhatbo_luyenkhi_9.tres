@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://bj6xjdw1k2kfo"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_poe3j"]
+
+[resource]
+script = ExtResource("1_poe3j")
+realmName = "Luyện Khí Tầng 9"
+requiredCp = 1281.0
+bonusMaxSe = 28
+bonusAttack = 4
+bonusDefense = 1

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://boi74ecllq7s"]
+
+[ext_resource type="Script" uid="uid://cvhtykyreyasy" path="res://scripts/core/resources/ItemData.gd" id="1_ctuy5"]
+
+[resource]
+script = ExtResource("1_ctuy5")
+id = "item_jade_stalk_pill"
+itemName = "Trúc Cơ Đan"
+description = "Đan dược quý giá, giúp tu sĩ Luyện Khí Kỳ có cơ hội đột phá đến Trúc Cơ Kỳ."
+itemType = 0
+isStackable = true
+isUsable = true
+isEquippable = false
+effects = {}
+metadata/_custom_type_script = "uid://cvhtykyreyasy"

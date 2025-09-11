@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3 uid="uid://cni5f512djdva"]
+
+[ext_resource type="Script" uid="uid://dsofqfla6rmsi" path="res://scripts/core/resources/EnemyData.gd" id="1_fucvs"]
+[ext_resource type="Texture2D" uid="uid://dx2mdrjaxmroa" path="res://icon.svg" id="2_k68b5"]
+
+[resource]
+script = ExtResource("1_fucvs")
+enemyName = "Sư Huynh Ghen Ghét"
+sprite = ExtResource("2_k68b5")
+maxHp = 80
+attackPower = 12
+defense = 3
+speed = 4
+cpReward = 25.0
+lootTable = {}
+metadata/_custom_type_script = "uid://dsofqfla6rmsi"

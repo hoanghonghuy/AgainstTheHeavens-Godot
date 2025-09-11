@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://cictgwjv2crbx"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_86bvt"]
+
+[resource]
+script = ExtResource("1_86bvt")
+realmName = "Hóa Thần Sơ Kỳ"
+requiredCp = 2e+07
+bonusMaxSe = 10000
+bonusAttack = 5000
+bonusDefense = 2500

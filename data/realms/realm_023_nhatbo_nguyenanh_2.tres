@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://bvvuex4ap7l1d"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_vtktg"]
+
+[resource]
+script = ExtResource("1_vtktg")
+realmName = "Nguyên Anh Trung Kỳ"
+requiredCp = 5e+06
+bonusMaxSe = 3500
+bonusAttack = 1800
+bonusDefense = 900

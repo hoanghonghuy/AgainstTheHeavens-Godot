@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://dghfpniiea41n"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_mfvr4"]
+
+[resource]
+script = ExtResource("1_mfvr4")
+realmName = "Hóa Thần Trung Kỳ"
+requiredCp = 5e+07
+bonusMaxSe = 15000
+bonusAttack = 7500
+bonusDefense = 3800

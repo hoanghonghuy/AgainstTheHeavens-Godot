@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://bddmuvm7r8u7m"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_fek3c"]
+
+[resource]
+script = ExtResource("1_fek3c")
+realmName = "Kết Đan Sơ Kỳ"
+requiredCp = 250000.0
+bonusMaxSe = 500
+bonusAttack = 250
+bonusDefense = 120

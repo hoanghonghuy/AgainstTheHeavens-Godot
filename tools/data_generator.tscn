@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4ual5ir5dnd5"]
+
+[ext_resource type="Script" uid="uid://byhv1nd7hisa7" path="res://tools/data_generator.gd" id="1_jkvhp"]
+
+[node name="DataGenerator" type="Node"]
+script = ExtResource("1_jkvhp")

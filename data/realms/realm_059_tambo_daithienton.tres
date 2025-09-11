@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://do28c4nenanwp"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_8cl7g"]
+
+[resource]
+script = ExtResource("1_8cl7g")
+realmName = "Đại Thiên Tôn"
+requiredCp = 2e+19
+bonusMaxSe = 300000000000
+bonusAttack = 150000000000
+bonusDefense = 75000000000

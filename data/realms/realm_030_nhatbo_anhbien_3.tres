@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://k5b0yfkoyhqg"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_81ks1"]
+
+[resource]
+script = ExtResource("1_81ks1")
+realmName = "Anh Biến Hậu Kỳ"
+requiredCp = 9e+08
+bonusMaxSe = 110000
+bonusAttack = 55000
+bonusDefense = 27000

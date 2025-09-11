@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://ss824ad6ktwn"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_4ebix"]
+
+[resource]
+script = ExtResource("1_4ebix")
+realmName = "Không Huyền Sơ Kỳ"
+requiredCp = 2e+16
+bonusMaxSe = 2500000000
+bonusAttack = 1200000000
+bonusDefense = 600000000

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://cr7wtdxlqsfks"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_hyn2j"]
+
+[resource]
+script = ExtResource("1_hyn2j")
+realmName = "Khuy Niết"
+requiredCp = 2e+11
+bonusMaxSe = 5000000
+bonusAttack = 2500000
+bonusDefense = 1200000

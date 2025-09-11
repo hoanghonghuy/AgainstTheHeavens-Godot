@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://3shquoqvii3m"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_we8vm"]
+
+[resource]
+script = ExtResource("1_we8vm")
+realmName = "Không Linh Trung Kỳ"
+requiredCp = 5e+15
+bonusMaxSe = 750000000
+bonusAttack = 380000000
+bonusDefense = 190000000

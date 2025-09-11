@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://df8scvgvk8qp4"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_46c1t"]
+
+[resource]
+script = ExtResource("1_46c1t")
+realmName = "Đạp Thiên Kiều 6"
+requiredCp = 3.645e+22
+bonusMaxSe = 64000000000000
+bonusAttack = 32000000000000
+bonusDefense = 16000000000000

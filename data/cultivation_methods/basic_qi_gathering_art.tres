@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CultivationMethodData" load_steps=2 format=3 uid="uid://bfgd48htuirmp"]
+
+[ext_resource type="Script" uid="uid://ba13vwwiala26" path="res://scripts/core/resources/CultivationMethodData.gd" id="1_3sa5e"]
+
+[resource]
+script = ExtResource("1_3sa5e")
+id = "cm_basic_qi_gathering_art"
+methodName = "Nạp Khí Quyết"
+description = "Công pháp nhập môn cơ bản nhất, giúp tu sĩ hấp thụ linh khí trời đất để chuyển hóa thành tu vi."
+rank = 0
+realmRequirement = "Luyện Khí Kỳ Tầng Một"
+spiritRootRequirement = ""
+passiveEffects = {}
+metadata/_custom_type_script = "uid://ba13vwwiala26"

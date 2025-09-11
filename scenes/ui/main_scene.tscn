@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccujaookwv2nq"]
+
+[ext_resource type="Script" uid="uid://cpnxm5vaovvyk" path="res://scenes/ui/main_scene.gd" id="1_fhhka"]
+[ext_resource type="PackedScene" uid="uid://crfmejhjrobw8" path="res://scenes/ui/combat_scene.tscn" id="2_6gqhb"]
+
+[node name="MainScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fhhka")
+
+[node name="CombatScene" parent="." instance=ExtResource("2_6gqhb")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="MainUI" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StatsContainer" type="VBoxContainer" parent="MainUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 104.0
+
+[node name="CultivationLabel" type="Label" parent="MainUI/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SpiritStoneLabel" type="Label" parent="MainUI/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RealmLabel" type="Label" parent="MainUI/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SpiritEnergyLabel" type="Label" parent="MainUI/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CultivateButton" type="Button" parent="MainUI"]
+layout_mode = 0
+offset_left = 444.0
+offset_top = 617.0
+offset_right = 593.0
+offset_bottom = 648.0
+text = "Bế Quan Tu Luyện"
+
+[node name="RestButton" type="Button" parent="MainUI"]
+layout_mode = 0
+offset_left = 615.0
+offset_top = 616.0
+offset_right = 771.0
+offset_bottom = 647.0
+text = "Đả Tọa Tịnh Dưỡng"
+
+[node name="BreakthroughButton" type="Button" parent="MainUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 825.0
+offset_top = 615.0
+offset_right = 895.0
+offset_bottom = 646.0
+text = "Đột Phá"
+
+[node name="ChallengeButton" type="Button" parent="MainUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 146.0
+offset_top = 617.0
+offset_right = 327.0
+offset_bottom = 648.0
+text = "Khiêu Chiến Sư Huynh"
+
+[connection signal="pressed" from="MainUI/CultivateButton" to="." method="_on_cultivate_button_pressed"]
+[connection signal="pressed" from="MainUI/RestButton" to="." method="_on_rest_button_pressed"]
+[connection signal="pressed" from="MainUI/BreakthroughButton" to="." method="_on_breakthrough_button_pressed"]
+[connection signal="pressed" from="MainUI/ChallengeButton" to="." method="_on_challenge_button_pressed"]

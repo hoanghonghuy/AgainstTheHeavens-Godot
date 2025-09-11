@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://b74ju0hxbxdrp"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_lebis"]
+
+[resource]
+script = ExtResource("1_lebis")
+realmName = "Đạp Thiên Kiều 1"
+requiredCp = 1.5e+20
+bonusMaxSe = 2000000000000
+bonusAttack = 1000000000000
+bonusDefense = 500000000000

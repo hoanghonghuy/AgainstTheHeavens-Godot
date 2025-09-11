@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://c73c02rkyu611"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_cqs8y"]
+
+[resource]
+script = ExtResource("1_cqs8y")
+realmName = "Không Huyền Hậu Kỳ"
+requiredCp = 9e+16
+bonusMaxSe = 5500000000
+bonusAttack = 2700000000
+bonusDefense = 1300000000

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://1yh2l4n3l2nm"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_icrum"]
+
+[resource]
+script = ExtResource("1_icrum")
+realmName = "Luyện Khí Tầng 1"
+requiredCp = 50.0
+bonusMaxSe = 12
+bonusAttack = 1
+bonusDefense = 0

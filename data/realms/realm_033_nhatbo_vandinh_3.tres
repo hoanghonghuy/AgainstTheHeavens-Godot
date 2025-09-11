@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://bjkiejlfk7cu1"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_5c4bq"]
+
+[resource]
+script = ExtResource("1_5c4bq")
+realmName = "Vấn Đỉnh Hậu Kỳ"
+requiredCp = 9e+09
+bonusMaxSe = 550000
+bonusAttack = 270000
+bonusDefense = 130000

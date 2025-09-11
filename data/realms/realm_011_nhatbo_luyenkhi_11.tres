@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://d2isx4l30r3ji"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_8te48"]
+
+[resource]
+script = ExtResource("1_8te48")
+realmName = "Luyện Khí Tầng 11"
+requiredCp = 2883.0
+bonusMaxSe = 32
+bonusAttack = 4
+bonusDefense = 2

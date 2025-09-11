@@ -1,0 +1,15 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+*.translation
+*.remap
+*.gdnlib
+*.gdns
+*.tres.old
+*.binary
+/.vscode/
+# Mono-specific ignores for C#
+.mono/
+bin/
+obj/

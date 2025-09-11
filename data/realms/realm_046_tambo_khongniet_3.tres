@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RealmData" load_steps=2 format=3 uid="uid://qmoc3o8f6t71"]
+
+[ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_lt0ve"]
+
+[resource]
+script = ExtResource("1_lt0ve")
+realmName = "Không Niết Hậu Kỳ"
+requiredCp = 9e+14
+bonusMaxSe = 220000000
+bonusAttack = 110000000
+bonusDefense = 55000000
