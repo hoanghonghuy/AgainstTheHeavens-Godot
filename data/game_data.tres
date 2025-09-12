@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GameData" load_steps=77 format=3 uid="uid://pf4bts7x3n8o"]
+[gd_resource type="Resource" script_class="GameData" load_steps=79 format=3 uid="uid://pf4bts7x3n8o"]
 
 [ext_resource type="Script" uid="uid://cvhtykyreyasy" path="res://scripts/core/resources/ItemData.gd" id="1_os888"]
 [ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_y2yqy"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" uid="uid://d3afpm2yn5bnu" path="res://scripts/core/resources/GameData.gd" id="2_vllua"]
 [ext_resource type="Resource" uid="uid://clwqxojs2adsu" path="res://data/realms/realm_002_nhatbo_luyenkhi_2.tres" id="3_d4hl7"]
 [ext_resource type="Resource" uid="uid://boi74ecllq7s" path="res://data/items/jade_stalk_pill.tres" id="3_ty4fw"]
+[ext_resource type="Script" uid="uid://sktja5n8g6vu" path="res://scripts/core/resources/NPCData.gd" id="4_g1gha"]
 [ext_resource type="Resource" uid="uid://cecujkai0kieg" path="res://data/realms/realm_003_nhatbo_luyenkhi_3.tres" id="4_w3x1x"]
+[ext_resource type="Resource" uid="uid://0ms46puhyoj6" path="res://data/npcs/npc_guide_elder.tres" id="5_76so3"]
 [ext_resource type="Resource" uid="uid://487qmglvs1ke" path="res://data/realms/realm_004_nhatbo_luyenkhi_4.tres" id="5_etlxc"]
 [ext_resource type="Resource" uid="uid://dmwym1h7hw5u1" path="res://data/realms/realm_005_nhatbo_luyenkhi_5.tres" id="6_os888"]
 [ext_resource type="Resource" uid="uid://dxbnkaqnb1iuh" path="res://data/realms/realm_006_nhatbo_luyenkhi_6.tres" id="7_ty4fw"]
@@ -82,4 +84,5 @@ script = ExtResource("2_vllua")
 realms = Array[ExtResource("1_y2yqy")]([ExtResource("2_3d250"), ExtResource("3_d4hl7"), ExtResource("4_w3x1x"), ExtResource("5_etlxc"), ExtResource("6_os888"), ExtResource("7_ty4fw"), ExtResource("8_uplql"), ExtResource("9_g1gha"), ExtResource("10_76so3"), ExtResource("11_otjot"), ExtResource("12_dbqr1"), ExtResource("13_ukefk"), ExtResource("14_shryx"), ExtResource("15_krl1t"), ExtResource("16_5rqo6"), ExtResource("17_sjaub"), ExtResource("18_2js2v"), ExtResource("19_nybk8"), ExtResource("20_4e8kj"), ExtResource("21_j1b06"), ExtResource("22_wfcqe"), ExtResource("23_yj120"), ExtResource("24_ngdtn"), ExtResource("25_chr4t"), ExtResource("26_ddchn"), ExtResource("27_5h884"), ExtResource("28_7fc1b"), ExtResource("29_ikgww"), ExtResource("30_3o120"), ExtResource("31_dymmr"), ExtResource("32_k187u"), ExtResource("33_0hxm6"), ExtResource("34_gu3gw"), ExtResource("35_ullkv"), ExtResource("36_8wako"), ExtResource("37_1x260"), ExtResource("38_k1igp"), ExtResource("39_mtxkc"), ExtResource("40_ts3nm"), ExtResource("41_rbp7j"), ExtResource("42_jn6vh"), ExtResource("43_mb8cg"), ExtResource("44_nv5bh"), ExtResource("45_4cwmv"), ExtResource("46_hk1vw"), ExtResource("47_dgflr"), ExtResource("48_swnuy"), ExtResource("49_ls4n3"), ExtResource("50_5enxn"), ExtResource("51_nc81l"), ExtResource("52_5ufwk"), ExtResource("53_knvi8"), ExtResource("54_cs4n3"), ExtResource("55_dycy0"), ExtResource("56_0yahq"), ExtResource("57_1qp4o"), ExtResource("58_fl13e"), ExtResource("59_87pvr"), ExtResource("60_g3my3"), ExtResource("61_pctm6"), ExtResource("62_xyf1d"), ExtResource("63_2vs6w"), ExtResource("64_1wm40"), ExtResource("65_nquij"), ExtResource("66_0mhak"), ExtResource("67_7j8ed"), ExtResource("68_cp8co"), ExtResource("69_ah5br"), ExtResource("70_vynbc")])
 skills = Array[ExtResource("72_w3x1x")]([ExtResource("73_etlxc")])
 items = Array[ExtResource("1_os888")]([ExtResource("2_ty4fw"), ExtResource("3_ty4fw")])
+npcs = Array[ExtResource("4_g1gha")]([ExtResource("5_76so3")])
 metadata/_custom_type_script = "uid://d3afpm2yn5bnu"

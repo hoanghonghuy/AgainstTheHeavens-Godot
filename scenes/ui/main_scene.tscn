@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccujaookwv2nq"]
+[gd_scene load_steps=7 format=3 uid="uid://ccujaookwv2nq"]
 
 [ext_resource type="Script" uid="uid://cpnxm5vaovvyk" path="res://scenes/ui/main_scene.gd" id="1_fhhka"]
 [ext_resource type="PackedScene" uid="uid://crfmejhjrobw8" path="res://scenes/ui/combat_scene.tscn" id="2_6gqhb"]
+[ext_resource type="PackedScene" uid="uid://b0jfykanydytp" path="res://data/world/npc.tscn" id="2_ftex1"]
 [ext_resource type="PackedScene" uid="uid://cq0pbrmvu4q4p" path="res://scenes/ui/inventory_scene.tscn" id="3_kbhqf"]
+[ext_resource type="Resource" uid="uid://0ms46puhyoj6" path="res://data/npcs/npc_guide_elder.tres" id="3_nmbxo"]
+[ext_resource type="PackedScene" uid="uid://c050or76hbbmm" path="res://scenes/ui/dialogue_ui.tscn" id="6_nmbxo"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -11,7 +14,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_fhhka")
+
+[node name="World" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="NPC" parent="World" instance=ExtResource("2_ftex1")]
+unique_name_in_owner = true
+npc_data = ExtResource("3_nmbxo")
 
 [node name="CombatScene" parent="." instance=ExtResource("2_6gqhb")]
 unique_name_in_owner = true
@@ -23,6 +34,7 @@ unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="StatsContainer" type="VBoxContainer" parent="MainUI"]
 layout_mode = 0
@@ -91,18 +103,38 @@ text = "Túi Đồ"
 [node name="SaveButton" type="Button" parent="MainUI"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 948.0
+offset_top = -1.0
+offset_right = 1036.0
+offset_bottom = 30.0
 text = "Lưu Game"
 
 [node name="LoadButton" type="Button" parent="MainUI"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 1069.0
+offset_top = -1.0
+offset_right = 1150.0
+offset_bottom = 30.0
 text = "Tải Game"
 
 [node name="InventoryScene" parent="." instance=ExtResource("3_kbhqf")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="DialogueBlocker" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="DialogueUI" parent="." instance=ExtResource("6_nmbxo")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1

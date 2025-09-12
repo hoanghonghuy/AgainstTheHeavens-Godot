@@ -39,7 +39,7 @@ var equipment: Dictionary = {} # Ví dụ: {"weapon": "item_thiet_kiem"}
 #== Skills (Kỹ Năng Đã Học) ==
 # Mảng này sẽ chứa ID của các kỹ năng đã học.
 # cho nhân vật biết "Hỏa Cầu Thuật" ngay từ đầu để tiện cho việc thử nghiệm.
-var learnedSkills: Array[String] = ["skill_fireball"]
+var learnedSkills: Array = ["skill_fireball"]
 
 func attempt_breakthrough() -> bool:
 	var next_realm_index = currentRealmIndex + 1
