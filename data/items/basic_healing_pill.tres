@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://mqe8pgtq8gvr"]
+
+[ext_resource type="Script" uid="uid://cvhtykyreyasy" path="res://scripts/core/resources/ItemData.gd" id="1_rxhn3"]
+[ext_resource type="Texture2D" uid="uid://dx2mdrjaxmroa" path="res://icon.svg" id="1_yfnvs"]
+
+[resource]
+script = ExtResource("1_rxhn3")
+id = "item_basic_healing_pill"
+itemName = "Hồi Phục Đan (Hạ Phẩm)"
+description = "Đan dược cơ bản, giúp tu sĩ nhanh chóng hồi phục 50 điểm sinh mệnh."
+itemType = 0
+icon = ExtResource("1_yfnvs")
+isStackable = true
+isUsable = true
+isEquippable = false
+effects = {
+"healthPoints": 50.0
+}
+metadata/_custom_type_script = "uid://cvhtykyreyasy"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://budgmxywmtqy0"]
+
+[ext_resource type="Script" uid="uid://c80iweu11db01" path="res://scripts/core/resources/SkillData.gd" id="1_0luw2"]
+
+[resource]
+script = ExtResource("1_0luw2")
+skillId = "skill_fireball"
+skillName = "Hỏa Cầu Thuật"
+description = "Ngưng tụ linh khí thành một quả cầu lửa, tấn công kẻ địch. Một trong những pháp thuật cơ bản nhất."
+spiritEnergyCost = 15
+targetType = 0
+damageMultiplier = 1.8
+metadata/_custom_type_script = "uid://c80iweu11db01"

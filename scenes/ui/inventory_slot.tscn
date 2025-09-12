@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://up8rb55wkhhd"]
+
+[ext_resource type="Script" uid="uid://fwc5077q1nnp" path="res://scenes/ui/inventory_slot.gd" id="1_kscix"]
+[ext_resource type="Texture2D" uid="uid://dx2mdrjaxmroa" path="res://icon.svg" id="2_ru537"]
+
+[node name="InventorySlot" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_kscix")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_ru537")
+
+[node name="QuantityLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2

@@ -12,5 +12,7 @@ attackPower = 12
 defense = 3
 speed = 4
 cpReward = 25.0
-lootTable = {}
+lootTable = {
+"item_low_grade_spirit_stone": 0.5
+}
 metadata/_custom_type_script = "uid://dsofqfla6rmsi"

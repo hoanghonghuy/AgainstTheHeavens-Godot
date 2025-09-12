@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Database="*res://scripts/core/singletons/Database.gd"
 PlayerState="*res://scripts/core/singletons/PlayerState.gd"
+SaveManager="*res://scripts/core/singletons/SaveManager.gd"
 
 [dotnet]
 

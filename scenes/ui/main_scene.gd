@@ -5,26 +5,55 @@ extends Control
 # Tham chiếu đến các container chính và scene chiến đấu
 @onready var main_ui: Control = %MainUI
 @onready var combat_scene: Control = %CombatScene
+@onready var inventory_scene: Control = %InventoryScene
 
 #== Lấy tham chiếu đến các Node Label trong Scene ==
 # Dùng @onready để đảm bảo các node này đã tồn tại trước khi script truy cập chúng.
-# Ký tự `$` là cách viết tắt của hàm get_node().
 @onready var cultivation_label: Label = %CultivationLabel
 @onready var spirit_stone_label: Label = %SpiritStoneLabel
 @onready var realm_label: Label = %RealmLabel
 @onready var spirit_energy_label: Label = %SpiritEnergyLabel
 @onready var breakthrough_button: Button = %BreakthroughButton
+@onready var save_button: Button = %SaveButton
+@onready var load_button: Button = %LoadButton
 
 func _ready() -> void:
 	# Kết nối tín hiệu "combat_finished" từ CombatScene đến một hàm trong script này
 	combat_scene.combat_finished.connect(_on_combat_finished)
+	inventory_scene.closed.connect(_on_inventory_closed)
 	update_stats_display()
+	
+#====================================================#
+#               QUẢN LÝ LƯU & TẢI GAME                 #
+#====================================================#
+
+func _on_save_button_pressed() -> void:
+	SaveManager.save_game()
+	# Sau khi lưu thành công, nút Tải Game phải được kích hoạt
+	load_button.disabled = false
+	print("Đã nhấn Lưu Game!") # Thêm thông báo để kiểm tra
+
+func _on_load_button_pressed() -> void:
+	SaveManager.load_game()
+	# Sau khi tải xong, cập nhật lại toàn bộ giao diện để hiển thị dữ liệu mới
+	update_stats_display()
+	print("Đã nhấn Tải Game!")
+# Được gọi khi nhấn nút "Túi Đồ"
+func _on_inventory_button_pressed() -> void:
+	inventory_scene.update_display() # Cập nhật túi đồ trước khi hiện
+	inventory_scene.show()
+	main_ui.hide()
+
+# Được gọi khi túi đồ phát tín hiệu đã đóng
+func _on_inventory_closed() -> void:
+	main_ui.show()
+	# Không cần làm gì thêm vì inventory_scene đã tự ẩn
 	
 # Hàm được gọi khi trận đấu kết thúc
 func _on_combat_finished() -> void:
 	combat_scene.hide() # Ẩn màn hình chiến đấu
 	main_ui.show()      # Hiện lại giao diện chính
-	update_stats_display() # Cập nhật lại chỉ số (với phần thưởng nếu có)
+	update_stats_display() # Cập nhật lại chỉ số 
 
 #== Hàm cập nhật hiển thị chỉ số ==
 # Hàm này sẽ lấy dữ liệu từ Singleton PlayerState và gán vào các Label.

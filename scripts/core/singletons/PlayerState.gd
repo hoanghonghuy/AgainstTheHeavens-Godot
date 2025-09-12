@@ -33,8 +33,13 @@ var cultivationRealm: String = "Luyện Khí Kỳ Tầng Một"
 #== Inventories (Túi Đồ) ==
 # Chúng ta sẽ sử dụng Dictionary để lưu trữ.
 # Key: ID của vật phẩm, Value: số lượng.
-var inventory: Dictionary = {} # Ví dụ: {"item_truc_co_dan": 5}
+var inventory: Dictionary = {"item_basic_healing_pill": 5}
 var equipment: Dictionary = {} # Ví dụ: {"weapon": "item_thiet_kiem"}
+
+#== Skills (Kỹ Năng Đã Học) ==
+# Mảng này sẽ chứa ID của các kỹ năng đã học.
+# cho nhân vật biết "Hỏa Cầu Thuật" ngay từ đầu để tiện cho việc thử nghiệm.
+var learnedSkills: Array[String] = ["skill_fireball"]
 
 func attempt_breakthrough() -> bool:
 	var next_realm_index = currentRealmIndex + 1

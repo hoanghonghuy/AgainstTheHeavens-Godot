@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://boi74ecllq7s"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://boi74ecllq7s"]
 
+[ext_resource type="Texture2D" uid="uid://dx2mdrjaxmroa" path="res://icon.svg" id="1_70ax4"]
 [ext_resource type="Script" uid="uid://cvhtykyreyasy" path="res://scripts/core/resources/ItemData.gd" id="1_ctuy5"]
 
 [resource]
@@ -8,8 +9,11 @@ id = "item_jade_stalk_pill"
 itemName = "Trúc Cơ Đan"
 description = "Đan dược quý giá, giúp tu sĩ Luyện Khí Kỳ có cơ hội đột phá đến Trúc Cơ Kỳ."
 itemType = 0
+icon = ExtResource("1_70ax4")
 isStackable = true
 isUsable = true
 isEquippable = false
-effects = {}
+effects = {
+"cultivationPoints": 100.0
+}
 metadata/_custom_type_script = "uid://cvhtykyreyasy"

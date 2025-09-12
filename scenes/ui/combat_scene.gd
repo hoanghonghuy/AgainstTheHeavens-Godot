@@ -27,6 +27,12 @@ var current_state: CombatState
 var current_enemy_data: EnemyData
 var player_current_hp: int
 var enemy_current_hp: int
+var is_player_defending: bool = false # Biến ghi nhớ trạng thái phòng ngự
+
+@onready var skill_panel: PanelContainer = %SkillPanel
+@onready var skill_list_container: VBoxContainer = %SkillListContainer
+@onready var item_panel: PanelContainer = %ItemPanel
+@onready var item_list_container: VBoxContainer = %ItemListContainer
 
 #===================================================================#
 #                THAM CHIẾU ĐẾN CÁC NODE GIAO DIỆN                  #
@@ -63,13 +69,16 @@ func start_combat(enemy_data: EnemyData) -> void:
 	# Khởi tạo chỉ số cho trận đấu từ dữ liệu gốc.
 	player_current_hp = PlayerState.healthPoints
 	enemy_current_hp = current_enemy_data.maxHp
-	
+	is_player_defending = false
 	# Cập nhật giao diện lần đầu tiên.
 	update_display()
 	
 	# Xóa nhật ký cũ và thêm thông báo bắt đầu.
 	combat_log.clear()
 	add_log_message("Trận đấu bắt đầu! Đối thủ: %s" % current_enemy_data.enemyName)
+	
+	populate_skill_list()
+	populate_item_list()
 	
 	# Quyết định lượt đi đầu tiên.
 	change_state(CombatState.PLAYER_TURN)
@@ -80,6 +89,8 @@ func change_state(new_state: CombatState) -> void:
 	
 	match current_state:
 		CombatState.PLAYER_TURN:
+			skill_panel.hide()
+			item_panel.hide()
 			add_log_message("Đến lượt của bạn.")
 			action_buttons.show() # Hiện các nút hành động để người chơi chọn.
 			
@@ -127,11 +138,22 @@ func _on_attack_button_pressed() -> void:
 
 # AI đơn giản của kẻ địch.
 func enemy_action() -> void:
-	var damage = current_enemy_data.attackPower - PlayerState.defense
+	var damage = current_enemy_data.attackPower
+	var player_defense = PlayerState.defense
+
+	# Nếu người chơi đang phòng ngự, tăng gấp đôi phòng thủ cho lượt này
+	if is_player_defending:
+		player_defense *= 2
+		add_log_message("Bạn đang phòng ngự!")
+	
+	damage -= player_defense
 	damage = max(1, damage)
 	
 	player_current_hp -= damage
 	add_log_message("%s tấn công, gây %d sát thương." % [current_enemy_data.enemyName, damage])
+	
+	# QUAN TRỌNG: Sau khi kẻ địch tấn công xong, hủy trạng thái phòng ngự
+	is_player_defending = false
 	
 	update_display()
 	
@@ -139,7 +161,120 @@ func enemy_action() -> void:
 		change_state(CombatState.DEFEAT)
 	else:
 		change_state(CombatState.PLAYER_TURN)
+
+
+# Được gọi khi người chơi nhấn nút "Phòng Ngự"
+func _on_defend_button_pressed() -> void:
+	if current_state != CombatState.PLAYER_TURN:
+		return
+	
+	is_player_defending = true # Đặt trạng thái phòng ngự
+	add_log_message("Bạn giơ tay phòng ngự, chuẩn bị đỡ đòn.")
+	
+	# Sau khi phòng ngự, chuyển ngay sang lượt của kẻ địch
+	change_state(CombatState.ENEMY_TURN)
+	
+# Hàm được gọi khi nhấn nút "Kỹ Năng" trên thanh hành động chính
+func _on_skill_button_pressed() -> void:
+	if current_state != CombatState.PLAYER_TURN:
+		return
+	# Hiện hoặc ẩn bảng chọn kỹ năng
+	skill_panel.visible = not skill_panel.visible
+
+# Hàm tạo các nút kỹ năng một cách tự động
+func populate_skill_list() -> void:
+	# Xóa các nút kỹ năng cũ (nếu có)
+	for child in skill_list_container.get_children():
+		child.queue_free()
 		
+	# Lặp qua danh sách các kỹ năng người chơi đã học
+	for skill_id in PlayerState.learnedSkills:
+		# Lấy thông tin chi tiết của kỹ năng từ Database
+		var skill_data: SkillData = Database.skills.get(skill_id)
+		
+		if skill_data:
+			var skill_button = Button.new()
+			# Hiển thị tên và năng lượng tiêu hao trên nút
+			skill_button.text = "%s (%d Linh Khí)" % [skill_data.skillName, skill_data.spiritEnergyCost]
+			# Kết nối tín hiệu pressed của nút này với hàm use_skill, truyền vào skill_data
+			skill_button.pressed.connect(use_skill.bind(skill_data))
+			skill_list_container.add_child(skill_button)
+
+# Hàm được gọi khi một nút kỹ năng cụ thể được nhấn
+func use_skill(skill_data: SkillData) -> void:
+	if current_state != CombatState.PLAYER_TURN:
+		return
+	
+	# 1. Kiểm tra điều kiện sử dụng (đủ Linh Khí)
+	if PlayerState.spiritEnergy < skill_data.spiritEnergyCost:
+		add_log_message("Linh khí không đủ để thi triển %s!" % skill_data.skillName)
+		return # Không làm gì cả
+	
+	# 2. Trừ Linh Khí
+	PlayerState.spiritEnergy -= skill_data.spiritEnergyCost
+	
+	# 3. Tính sát thương
+	var base_damage = PlayerState.attackPower * skill_data.damageMultiplier
+	var final_damage = base_damage - current_enemy_data.defense
+	final_damage = max(1, final_damage) # Sát thương tối thiểu là 1
+	
+	# 4. Gây sát thương và thông báo
+	enemy_current_hp -= final_damage
+	add_log_message("Bạn thi triển %s, gây %.0f sát thương!" % [skill_data.skillName, final_damage])
+	
+	# 5. Cập nhật giao diện và chuyển lượt
+	update_display()
+	if enemy_current_hp <= 0:
+		change_state(CombatState.VICTORY)
+	else:
+		change_state(CombatState.ENEMY_TURN)
+
+#===================================================================#
+#                      HÀNH ĐỘNG VẬT PHẨM (MỚI)                     #
+#===================================================================#
+func _on_item_button_pressed() -> void:
+	if current_state != CombatState.PLAYER_TURN: return
+	item_panel.visible = not item_panel.visible # Hiện/ẩn bảng vật phẩm
+	skill_panel.hide() # Ẩn bảng kỹ năng đi để tránh chồng chéo
+
+func populate_item_list() -> void:
+	for child in item_list_container.get_children():
+		child.queue_free()
+	
+	for item_id in PlayerState.inventory:
+		var item_data: ItemData = Database.items.get(item_id)
+		var quantity: int = PlayerState.inventory[item_id]
+		
+		if item_data and item_data.itemType == ItemData.ItemType.CONSUMABLE and item_data.isUsable:
+			var item_button = Button.new()
+			item_button.text = "%s (x%d)" % [item_data.itemName, quantity]
+			item_button.pressed.connect(use_item.bind(item_id))
+			item_list_container.add_child(item_button)
+
+func use_item(item_id: String) -> void:
+	if current_state != CombatState.PLAYER_TURN: return
+
+	var item_data: ItemData = Database.items.get(item_id)
+	
+	# Xử lý hiệu ứng
+	if item_data.effects.has("healthPoints"):
+		var heal_amount = item_data.effects["healthPoints"]
+		player_current_hp += heal_amount
+		# Đảm bảo máu không vượt quá tối đa
+		player_current_hp = min(player_current_hp, PlayerState.healthPoints)
+		add_log_message("Bạn dùng %s, hồi phục %.0f Sinh Mệnh." % [item_data.itemName, heal_amount])
+	
+	# Trừ vật phẩm khỏi túi đồ
+	PlayerState.inventory[item_id] -= 1
+	if PlayerState.inventory[item_id] <= 0:
+		PlayerState.inventory.erase(item_id)
+	
+	# Cập nhật lại danh sách vật phẩm và chuyển lượt
+	populate_item_list()
+	update_display()
+	change_state(CombatState.ENEMY_TURN)
+
+
 #===================================================================#
 #                          HÀM TIỆN ÍCH                             #
 #===================================================================#

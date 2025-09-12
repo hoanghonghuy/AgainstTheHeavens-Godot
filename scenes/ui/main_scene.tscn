@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccujaookwv2nq"]
+[gd_scene load_steps=4 format=3 uid="uid://ccujaookwv2nq"]
 
 [ext_resource type="Script" uid="uid://cpnxm5vaovvyk" path="res://scenes/ui/main_scene.gd" id="1_fhhka"]
 [ext_resource type="PackedScene" uid="uid://crfmejhjrobw8" path="res://scenes/ui/combat_scene.tscn" id="2_6gqhb"]
+[ext_resource type="PackedScene" uid="uid://cq0pbrmvu4q4p" path="res://scenes/ui/inventory_scene.tscn" id="3_kbhqf"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -78,7 +79,38 @@ offset_right = 327.0
 offset_bottom = 648.0
 text = "Khiêu Chiến Sư Huynh"
 
+[node name="InventoryButton" type="Button" parent="MainUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1094.0
+offset_top = 312.0
+offset_right = 1152.0
+offset_bottom = 343.0
+text = "Túi Đồ"
+
+[node name="SaveButton" type="Button" parent="MainUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Lưu Game"
+
+[node name="LoadButton" type="Button" parent="MainUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Tải Game"
+
+[node name="InventoryScene" parent="." instance=ExtResource("3_kbhqf")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="MainUI/CultivateButton" to="." method="_on_cultivate_button_pressed"]
 [connection signal="pressed" from="MainUI/RestButton" to="." method="_on_rest_button_pressed"]
 [connection signal="pressed" from="MainUI/BreakthroughButton" to="." method="_on_breakthrough_button_pressed"]
 [connection signal="pressed" from="MainUI/ChallengeButton" to="." method="_on_challenge_button_pressed"]
+[connection signal="pressed" from="MainUI/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="MainUI/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MainUI/LoadButton" to="." method="_on_load_button_pressed"]

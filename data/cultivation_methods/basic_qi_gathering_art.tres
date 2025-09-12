@@ -10,5 +10,7 @@ description = "Công pháp nhập môn cơ bản nhất, giúp tu sĩ hấp th�
 rank = 0
 realmRequirement = "Luyện Khí Kỳ Tầng Một"
 spiritRootRequirement = ""
-passiveEffects = {}
+passiveEffects = {
+"cultivationPoints_per_second": 0.5
+}
 metadata/_custom_type_script = "uid://ba13vwwiala26"
