@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccujaookwv2nq"]
+[gd_scene load_steps=10 format=3 uid="uid://ccujaookwv2nq"]
 
 [ext_resource type="Script" uid="uid://cpnxm5vaovvyk" path="res://scenes/ui/main_scene.gd" id="1_fhhka"]
 [ext_resource type="PackedScene" uid="uid://crfmejhjrobw8" path="res://scenes/ui/combat_scene.tscn" id="2_6gqhb"]
 [ext_resource type="PackedScene" uid="uid://b0jfykanydytp" path="res://data/world/npc.tscn" id="2_ftex1"]
 [ext_resource type="PackedScene" uid="uid://cq0pbrmvu4q4p" path="res://scenes/ui/inventory_scene.tscn" id="3_kbhqf"]
-[ext_resource type="Resource" uid="uid://0ms46puhyoj6" path="res://data/npcs/npc_guide_elder.tres" id="3_nmbxo"]
+[ext_resource type="Resource" uid="uid://cgtxve62i7w88" path="res://data/npcs/npc_guide_elder.tres" id="3_nmbxo"]
 [ext_resource type="PackedScene" uid="uid://c050or76hbbmm" path="res://scenes/ui/dialogue_ui.tscn" id="6_nmbxo"]
+[ext_resource type="PackedScene" uid="uid://fqwx4canuert" path="res://scenes/ui/alchemy_ui.tscn" id="7_gf0tn"]
+[ext_resource type="PackedScene" uid="uid://xqfuad6ir0qb" path="res://scenes/ui/quest_log_ui.tscn" id="8_daohi"]
+[ext_resource type="PackedScene" uid="uid://di6g2r07r273r" path="res://scenes/ui/cave_mansion_ui.tscn" id="9_kpvlf"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -118,6 +121,33 @@ offset_right = 1150.0
 offset_bottom = 30.0
 text = "Tải Game"
 
+[node name="AlchemyButton" type="Button" parent="MainUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1062.0
+offset_top = 227.0
+offset_right = 1153.0
+offset_bottom = 258.0
+text = "Luyện Đan"
+
+[node name="QuestLogButton" type="Button" parent="MainUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 389.0
+offset_right = 85.0
+offset_bottom = 420.0
+text = "Nhiệm Vụ"
+
+[node name="CaveMansionButton" type="Button" parent="MainUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1068.0
+offset_top = 168.0
+offset_right = 1151.0
+offset_bottom = 199.0
+text = "Động Phủ"
+
 [node name="InventoryScene" parent="." instance=ExtResource("3_kbhqf")]
 unique_name_in_owner = true
 visible = false
@@ -139,6 +169,21 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
+[node name="AlchemyUI" parent="." instance=ExtResource("7_gf0tn")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="QuestLogUI" parent="." instance=ExtResource("8_daohi")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="CaveMansionUI" parent="." instance=ExtResource("9_kpvlf")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="MainUI/CultivateButton" to="." method="_on_cultivate_button_pressed"]
 [connection signal="pressed" from="MainUI/RestButton" to="." method="_on_rest_button_pressed"]
 [connection signal="pressed" from="MainUI/BreakthroughButton" to="." method="_on_breakthrough_button_pressed"]
@@ -146,3 +191,6 @@ layout_mode = 1
 [connection signal="pressed" from="MainUI/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="MainUI/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="MainUI/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="MainUI/AlchemyButton" to="." method="_on_alchemy_button_pressed"]
+[connection signal="pressed" from="MainUI/QuestLogButton" to="." method="_on_quest_log_button_pressed"]
+[connection signal="pressed" from="MainUI/CaveMansionButton" to="." method="_on_cave_mansion_button_pressed"]

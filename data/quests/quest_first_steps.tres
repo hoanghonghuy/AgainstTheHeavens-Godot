@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://c7knq3ddl6rf6"]
+
+[ext_resource type="Script" uid="uid://bnx62k0fmv72v" path="res://scripts/core/resources/QuestData.gd" id="1_05853"]
+
+[resource]
+script = ExtResource("1_05853")
+questId = "quest_first_steps"
+title = "Bước Đầu Tu Luyện"
+description = "Trưởng Lão thấy ngươi vẫn còn yếu ớt, ngài yêu cầu ngươi luyện chế một vài viên Hồi Phục Đan để chứng tỏ thực lực."
+objectives = [{
+"quantity": 1,
+"target_id": "item_basic_healing_pill",
+"type": "craft"
+}]
+rewards = {
+"cp": 50.0,
+"spirit_stones": 20
+}
+metadata/_custom_type_script = "uid://bnx62k0fmv72v"

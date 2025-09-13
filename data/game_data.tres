@@ -1,17 +1,21 @@
-[gd_resource type="Resource" script_class="GameData" load_steps=79 format=3 uid="uid://pf4bts7x3n8o"]
+[gd_resource type="Resource" script_class="GameData" load_steps=85 format=3 uid="uid://pf4bts7x3n8o"]
 
+[ext_resource type="Resource" uid="uid://bqakpqthn3484" path="res://data/buildings/spirit_gathering_array/level_1.tres" id="1_krl1t"]
 [ext_resource type="Script" uid="uid://cvhtykyreyasy" path="res://scripts/core/resources/ItemData.gd" id="1_os888"]
 [ext_resource type="Script" uid="uid://jxte7cbc8e8s" path="res://scripts/core/resources/RealmData.gd" id="1_y2yqy"]
 [ext_resource type="Resource" uid="uid://1yh2l4n3l2nm" path="res://data/realms/realm_001_nhatbo_luyenkhi_1.tres" id="2_3d250"]
+[ext_resource type="Resource" uid="uid://durce4uq0d8sc" path="res://data/buildings/spirit_gathering_array/level_2.tres" id="2_5rqo6"]
 [ext_resource type="Resource" uid="uid://mqe8pgtq8gvr" path="res://data/items/basic_healing_pill.tres" id="2_ty4fw"]
 [ext_resource type="Script" uid="uid://d3afpm2yn5bnu" path="res://scripts/core/resources/GameData.gd" id="2_vllua"]
 [ext_resource type="Resource" uid="uid://clwqxojs2adsu" path="res://data/realms/realm_002_nhatbo_luyenkhi_2.tres" id="3_d4hl7"]
 [ext_resource type="Resource" uid="uid://boi74ecllq7s" path="res://data/items/jade_stalk_pill.tres" id="3_ty4fw"]
 [ext_resource type="Script" uid="uid://sktja5n8g6vu" path="res://scripts/core/resources/NPCData.gd" id="4_g1gha"]
 [ext_resource type="Resource" uid="uid://cecujkai0kieg" path="res://data/realms/realm_003_nhatbo_luyenkhi_3.tres" id="4_w3x1x"]
-[ext_resource type="Resource" uid="uid://0ms46puhyoj6" path="res://data/npcs/npc_guide_elder.tres" id="5_76so3"]
+[ext_resource type="Resource" uid="uid://cgtxve62i7w88" path="res://data/npcs/npc_guide_elder.tres" id="5_76so3"]
 [ext_resource type="Resource" uid="uid://487qmglvs1ke" path="res://data/realms/realm_004_nhatbo_luyenkhi_4.tres" id="5_etlxc"]
 [ext_resource type="Resource" uid="uid://dmwym1h7hw5u1" path="res://data/realms/realm_005_nhatbo_luyenkhi_5.tres" id="6_os888"]
+[ext_resource type="Script" uid="uid://bnx62k0fmv72v" path="res://scripts/core/resources/QuestData.gd" id="6_ukefk"]
+[ext_resource type="Resource" uid="uid://c7knq3ddl6rf6" path="res://data/quests/quest_first_steps.tres" id="7_shryx"]
 [ext_resource type="Resource" uid="uid://dxbnkaqnb1iuh" path="res://data/realms/realm_006_nhatbo_luyenkhi_6.tres" id="7_ty4fw"]
 [ext_resource type="Resource" uid="uid://qs2lugb7en37" path="res://data/realms/realm_007_nhatbo_luyenkhi_7.tres" id="8_uplql"]
 [ext_resource type="Resource" uid="uid://byt7sculm8boj" path="res://data/realms/realm_008_nhatbo_luyenkhi_8.tres" id="9_g1gha"]
@@ -78,6 +82,8 @@
 [ext_resource type="Resource" uid="uid://dgajxwf7vtfdr" path="res://data/realms/realm_069_tubo_dapthien.tres" id="70_vynbc"]
 [ext_resource type="Script" uid="uid://c80iweu11db01" path="res://scripts/core/resources/SkillData.gd" id="72_w3x1x"]
 [ext_resource type="Resource" uid="uid://budgmxywmtqy0" path="res://data/skills/skill_fireball.tres" id="73_etlxc"]
+[ext_resource type="Script" uid="uid://k5p5ocomwemx" path="res://scripts/core/resources/RecipeData.gd" id="76_otjot"]
+[ext_resource type="Resource" uid="uid://mu6xsck5vsy6" path="res://data/recipes/recipe_basic_healing_pill.tres" id="77_dbqr1"]
 
 [resource]
 script = ExtResource("2_vllua")
@@ -85,4 +91,9 @@ realms = Array[ExtResource("1_y2yqy")]([ExtResource("2_3d250"), ExtResource("3_d
 skills = Array[ExtResource("72_w3x1x")]([ExtResource("73_etlxc")])
 items = Array[ExtResource("1_os888")]([ExtResource("2_ty4fw"), ExtResource("3_ty4fw")])
 npcs = Array[ExtResource("4_g1gha")]([ExtResource("5_76so3")])
+recipes = Array[ExtResource("76_otjot")]([ExtResource("77_dbqr1")])
+quests = Array[ExtResource("6_ukefk")]([ExtResource("7_shryx")])
+buildings = {
+"spirit_gathering_array": [ExtResource("1_krl1t"), ExtResource("2_5rqo6")]
+}
 metadata/_custom_type_script = "uid://d3afpm2yn5bnu"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=2 format=3 uid="uid://durce4uq0d8sc"]
+
+[ext_resource type="Script" uid="uid://ihmtug83n8g3" path="res://scripts/core/resources/BuildingData.gd" id="1_2nb54"]
+
+[resource]
+script = ExtResource("1_2nb54")
+level = 2
+name = "Tụ Linh Trận (Trung Cấp)"
+description = "Hiệu quả hội tụ linh khí được tăng cường."
+upgrade_cost = {
+"spirit_stones": 500
+}
+effects = {
+"spirit_energy_regen": 0.25
+}
+metadata/_custom_type_script = "uid://ihmtug83n8g3"

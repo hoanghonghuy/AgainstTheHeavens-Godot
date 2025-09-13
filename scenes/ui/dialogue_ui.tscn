@@ -32,3 +32,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 text = "Đây là nơi nội dung hội thoại sẽ xuất hiện..."
+
+[node name="OptionsContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2

@@ -1,0 +1,109 @@
+[gd_scene load_steps=3 format=3 uid="uid://fqwx4canuert"]
+
+[ext_resource type="PackedScene" uid="uid://up8rb55wkhhd" path="res://scenes/ui/inventory_slot.tscn" id="1_i24ft"]
+[ext_resource type="Script" uid="uid://dkb7sf8oq4tf0" path="res://scenes/ui/alchemy_ui.gd" id="1_rjjtg"]
+
+[node name="AlchemyUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_rjjtg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RecipeListPanel" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RecipeListPanel"]
+layout_mode = 2
+text = "Đan Phương"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/RecipeListPanel"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RecipeListContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RecipeListPanel/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CraftingPanel" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="SelectedRecipeNameLabel" type="Label" parent="MarginContainer/HBoxContainer/CraftingPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Chọn một công thức"
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/CraftingPanel"]
+layout_mode = 2
+text = "--- Nguyên Liệu Yêu Cầu ---"
+
+[node name="IngredientsContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/CraftingPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/CraftingPanel"]
+layout_mode = 2
+text = "--- Thành Phẩm ---"
+
+[node name="OutputSlot" parent="MarginContainer/HBoxContainer/CraftingPanel" instance=ExtResource("1_i24ft")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CraftButton" type="Button" parent="MarginContainer/HBoxContainer/CraftingPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Luyện Chế"
+
+[node name="InventoryPanel" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/InventoryPanel"]
+layout_mode = 2
+text = "Nguyên Liệu Hiện Có"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/InventoryPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerInventoryGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/InventoryPanel/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 4
+
+[node name="CloseButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -49.0
+offset_bottom = 31.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Đóng"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CraftingPanel/CraftButton" to="." method="_on_craft_button_pressed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

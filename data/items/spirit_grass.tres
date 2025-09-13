@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://c1ibnfdfdlk5"]
+
+[ext_resource type="Texture2D" uid="uid://dx2mdrjaxmroa" path="res://icon.svg" id="1_3xhl1"]
+[ext_resource type="Script" uid="uid://cvhtykyreyasy" path="res://scripts/core/resources/ItemData.gd" id="1_2236k"]
+
+[resource]
+script = ExtResource("1_2236k")
+id = "item_spirit_grass"
+itemName = "Linh Thảo"
+description = "Một loại cỏ linh dược phổ biến, dùng để luyện chế các loại đan dược cấp thấp."
+itemType = 4
+icon = ExtResource("1_3xhl1")
+isStackable = true
+isUsable = false
+isEquippable = false
+effects = {}
+metadata/_custom_type_script = "uid://cvhtykyreyasy"

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3 uid="uid://mu6xsck5vsy6"]
+
+[ext_resource type="Script" uid="uid://k5p5ocomwemx" path="res://scripts/core/resources/RecipeData.gd" id="1_5l4ld"]
+
+[resource]
+script = ExtResource("1_5l4ld")
+recipeId = "recipe_basic_healing_pill"
+outputItemId = "item_basic_healing_pill"
+outputQuantity = 1
+craftingType = 0
+requiredIngredients = {}
+metadata/_custom_type_script = "uid://k5p5ocomwemx"

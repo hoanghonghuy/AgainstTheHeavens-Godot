@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=2 format=3 uid="uid://bqakpqthn3484"]
+
+[ext_resource type="Script" uid="uid://ihmtug83n8g3" path="res://scripts/core/resources/BuildingData.gd" id="1_pntgp"]
+
+[resource]
+script = ExtResource("1_pntgp")
+level = 1
+name = "Tụ Linh Trận (Sơ Cấp)"
+description = "Một trận pháp đơn giản giúp hội tụ linh khí trời đất, tăng tốc độ hồi phục Linh Khí."
+upgrade_cost = {
+"spirit_stones": 100
+}
+effects = {
+"spirit_energy_regen": 0.1
+}
+metadata/_custom_type_script = "uid://ihmtug83n8g3"

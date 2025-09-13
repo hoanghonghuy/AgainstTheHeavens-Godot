@@ -1,18 +1,29 @@
-[gd_resource type="Resource" script_class="NPCData" load_steps=3 format=3 uid="uid://0ms46puhyoj6"]
+[gd_resource type="Resource" script_class="NPCData" load_steps=3 format=3 uid="uid://cgtxve62i7w88"]
 
-[ext_resource type="Script" uid="uid://sktja5n8g6vu" path="res://scripts/core/resources/NPCData.gd" id="1_gagdv"]
-[ext_resource type="Texture2D" uid="uid://dx2mdrjaxmroa" path="res://icon.svg" id="2_rb7ne"]
+[ext_resource type="Script" uid="uid://sktja5n8g6vu" path="res://scripts/core/resources/NPCData.gd" id="1_abcde"]
+[ext_resource type="Texture2D" uid="uid://dx2mdrjaxmroa" path="res://icon.svg" id="2_fghij"]
 
 [resource]
-script = ExtResource("1_gagdv")
+script = ExtResource("1_abcde")
 npcId = "npc_guide_elder"
 npcName = "Trưởng Lão"
-sprite = ExtResource("2_rb7ne")
+sprite = ExtResource("2_fghij")
 dialogue_pages = [{
 "speaker": "Trưởng Lão",
 "text": "Hỡi tân đệ tử, con đường tu tiên đầy gian truân. Hãy chăm chỉ tu luyện, khiêu chiến để rèn luyện bản thân."
 }, {
 "speaker": "Trưởng Lão",
 "text": "Ta thấy ngươi có cốt cách phi phàm, tương lai ắt thành đại khí!"
+}, {
+"options": [{
+"action": "accept_quest",
+"quest_id": "quest_first_steps",
+"text": "Đệ tử xin tuân mệnh."
+}, {
+"action": "close_dialogue",
+"text": "Để sau đã."
+}],
+"speaker": "Trưởng Lão",
+"text": "Ta có một nhiệm vụ muốn giao phó, ngươi có bằng lòng tiếp nhận không?"
 }]
 metadata/_custom_type_script = "uid://sktja5n8g6vu"

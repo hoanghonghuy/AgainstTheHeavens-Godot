@@ -34,6 +34,12 @@ func save_game():
 	save_data["inventory"] = PlayerState.inventory
 	save_data["equipment"] = PlayerState.equipment
 	save_data["learnedSkills"] = PlayerState.learnedSkills
+	save_data["learnedRecipes"] = PlayerState.learnedRecipes
+	save_data["quest_progress"] = PlayerState.quest_progress
+	save_data["building_levels"] = PlayerState.building_levels
+	
+	# Ghi lại dấu thời gian hiện tại (tính bằng giây)
+	save_data["last_saved_timestamp"] = Time.get_unix_time_from_system()
 
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if not file:
@@ -110,6 +116,40 @@ func load_game():
 	PlayerState.inventory = save_data.get("inventory", {})
 	PlayerState.equipment = save_data.get("equipment", {})
 	PlayerState.learnedSkills = save_data.get("learnedSkills", ["skill_fireball"])
+	PlayerState.learnedRecipes = save_data.get("learnedRecipes", [])
+	PlayerState.quest_progress = save_data.get("quest_progress", {})
+	PlayerState.building_levels = save_data.get("building_levels", {
+		"spirit_gathering_array": 1 # Giá trị mặc định nếu không tìm thấy
+	})
+	
+	# === BẮT ĐẦU KHỐI LOGIC "TU LUYỆN NGOẠI TUYẾN" (MỚI) ===
+	var last_saved_time = save_data.get("last_saved_timestamp", 0)
+	if last_saved_time > 0:
+		var current_time = Time.get_unix_time_from_system()
+		var time_passed_offline = current_time - last_saved_time
+		
+		print("Thời gian offline: %d giây." % time_passed_offline)
+		
+		var total_spirit_energy_gained = 0.0
+		
+		# Tính toán tổng tài nguyên nhận được từ các công trình
+		for building_id in PlayerState.building_levels:
+			var current_level = PlayerState.building_levels[building_id]
+			var level_data: BuildingData = Database.buildings[building_id][current_level - 1]
+			
+			for effect_key in level_data.effects:
+				var effect_value = level_data.effects[effect_key]
+				if effect_key == "spirit_energy_regen":
+					total_spirit_energy_gained += effect_value * time_passed_offline
+		
+		# Cộng tài nguyên vào cho người chơi
+		if total_spirit_energy_gained > 0:
+			PlayerState.spiritEnergy += total_spirit_energy_gained
+			# Đảm bảo không vượt quá giới hạn
+			PlayerState.spiritEnergy = min(PlayerState.spiritEnergy, PlayerState.maxSpiritEnergy)
+			print("Đã nhận được %.1f Linh Khí từ tu luyện ngoại tuyến." % total_spirit_energy_gained)
+			
+	# === KẾT THÚC KHỐI LOGIC "TU LUYỆN NGOẠI TUYẾN" ===
 	
 	print("Tải game thành công!")
 

@@ -16,6 +16,9 @@ extends Control
 @onready var dialogue_ui: Control = %DialogueUI
 @onready var world: Node2D = %World
 @onready var dialogue_blocker: ColorRect = %DialogueBlocker
+@onready var alchemy_ui: Control = %AlchemyUI
+@onready var quest_log_ui: Control = %QuestLogUI
+@onready var cave_mansion_ui: Control = %CaveMansionUI
 
 # Tham chiếu đến các nút bấm và label trong MainUI
 @onready var cultivation_label: Label = %CultivationLabel
@@ -36,6 +39,11 @@ func _ready() -> void:
 	inventory_scene.closed.connect(_on_inventory_closed)
 	dialogue_ui.close_requested.connect(_on_dialogue_close_requested)
 	dialogue_blocker.gui_input.connect(_on_dialogue_blocker_input)
+	alchemy_ui.closed.connect(_on_alchemy_closed)
+	dialogue_ui.option_selected.connect(_on_dialogue_option_selected)
+	quest_log_ui.closed.connect(_on_quest_log_closed)
+	cave_mansion_ui.closed.connect(_on_cave_mansion_closed)
+	PlayerState.stats_changed.connect(update_stats_display)
 	
 	# Tự động tìm và kết nối tín hiệu cho tất cả NPC trong World
 	for npc in world.get_children():
@@ -88,15 +96,18 @@ func _on_inventory_button_pressed() -> void:
 	inventory_scene.update_display() # Luôn làm mới túi đồ trước khi hiện
 	inventory_scene.show()
 	main_ui.hide()
+	world.hide()
 
 # Được gọi khi túi đồ phát tín hiệu đã đóng
 func _on_inventory_closed() -> void:
 	main_ui.show()
-
+	world.show()
+	
 # Được gọi khi trận đấu kết thúc
 func _on_combat_finished() -> void:
 	combat_scene.hide()
 	main_ui.show()
+	world.show()
 	update_stats_display()
 
 # Được gọi khi nhấn nút Khiêu Chiến
@@ -104,10 +115,41 @@ func _on_challenge_button_pressed() -> void:
 	var enemy_to_fight = load("res://data/enemies/rival_disciple.tres")
 	if enemy_to_fight:
 		main_ui.hide()
+		world.hide()
 		combat_scene.start_combat(enemy_to_fight)
 	else:
 		print("Lỗi: Không tìm thấy dữ liệu kẻ địch!")
 
+# Được gọi khi nhấn nút "Luyện Đan"
+func _on_alchemy_button_pressed() -> void:
+	alchemy_ui.open_panel() # Gọi hàm công khai để mở và cập nhật panel
+	main_ui.hide()
+	world.hide()
+
+# Được gọi khi giao diện Luyện Đan phát tín hiệu đã đóng
+func _on_alchemy_closed() -> void:
+	main_ui.show()
+	world.show()
+	
+# HÀM MỚI: Được gọi khi nhấn nút "Nhiệm Vụ"
+func _on_quest_log_button_pressed() -> void:
+	quest_log_ui.open_panel()
+	main_ui.hide()
+	world.hide()
+
+# HÀM MỚI: Được gọi khi giao diện Nhiệm Vụ phát tín hiệu đã đóng
+func _on_quest_log_closed() -> void:
+	main_ui.show()
+	world.show()
+	
+func _on_cave_mansion_button_pressed() -> void:
+	cave_mansion_ui.open_panel()
+	main_ui.hide()
+	world.hide()
+
+func _on_cave_mansion_closed() -> void:
+	main_ui.show()
+	world.show()
 #====================================================#
 #               QUẢN LÝ LƯU & TẢI GAME                 #
 #====================================================#
@@ -128,7 +170,7 @@ func update_stats_display() -> void:
 	cultivation_label.text = "Tu Vi: %.1f" % PlayerState.cultivationPoints
 	spirit_stone_label.text = "Linh Thạch: %d" % PlayerState.spiritStones
 	realm_label.text = "Cảnh Giới: %s" % PlayerState.cultivationRealm
-	spirit_energy_label.text = "Linh Khí: %d / %d" % [PlayerState.spiritEnergy, PlayerState.maxSpiritEnergy]
+	spirit_energy_label.text = "Linh Khí: %d / %d" % [int(PlayerState.spiritEnergy), PlayerState.maxSpiritEnergy]
 	
 	var next_realm_index = PlayerState.currentRealmIndex + 1
 	if next_realm_index < Database.realms.size():
@@ -155,3 +197,16 @@ func _on_breakthrough_button_pressed() -> void:
 	if PlayerState.attempt_breakthrough():
 		print("Đột phá thành công lên cảnh giới mới!")
 	update_stats_display()
+
+
+func _on_dialogue_option_selected(option_data: Dictionary):
+	var action = option_data.get("action", "")
+	
+	if action == "accept_quest":
+		var quest_id = option_data.get("quest_id", "")
+		PlayerState.accept_quest(quest_id)
+		# Sau khi nhận quest, đóng hội thoại
+		_on_dialogue_close_requested()
+		
+	elif action == "close_dialogue":
+		_on_dialogue_close_requested()

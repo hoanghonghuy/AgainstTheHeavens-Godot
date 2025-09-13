@@ -6,3 +6,6 @@ extends Resource
 @export var skills: Array[SkillData]
 @export var items: Array[ItemData]
 @export var npcs: Array[NPCData]
+@export var recipes: Array[RecipeData]
+@export var quests: Array[QuestData]
+@export var buildings: Dictionary = {}
