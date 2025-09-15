@@ -11,6 +11,6 @@ rank = 0
 realmRequirement = "Luyện Khí Kỳ Tầng Một"
 spiritRootRequirement = ""
 passiveEffects = {
-"cultivationPoints_per_second": 0.5
+"cultivationPoints_per_action": 1.5
 }
 metadata/_custom_type_script = "uid://ba13vwwiala26"

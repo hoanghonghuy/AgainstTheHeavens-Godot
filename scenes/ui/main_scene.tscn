@@ -1,14 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://ccujaookwv2nq"]
+[gd_scene load_steps=15 format=3 uid="uid://ccujaookwv2nq"]
 
+[ext_resource type="Theme" uid="uid://x6w3cvw73lm8" path="res://assets/main_theme.tres" id="1_8hm8w"]
 [ext_resource type="Script" uid="uid://cpnxm5vaovvyk" path="res://scenes/ui/main_scene.gd" id="1_fhhka"]
 [ext_resource type="PackedScene" uid="uid://crfmejhjrobw8" path="res://scenes/ui/combat_scene.tscn" id="2_6gqhb"]
-[ext_resource type="PackedScene" uid="uid://b0jfykanydytp" path="res://data/world/npc.tscn" id="2_ftex1"]
+[ext_resource type="PackedScene" path="res://data/world/npc.tscn" id="2_ftex1"]
 [ext_resource type="PackedScene" uid="uid://cq0pbrmvu4q4p" path="res://scenes/ui/inventory_scene.tscn" id="3_kbhqf"]
-[ext_resource type="Resource" uid="uid://cgtxve62i7w88" path="res://data/npcs/npc_guide_elder.tres" id="3_nmbxo"]
+[ext_resource type="Resource" uid="uid://dplq3v3gq3y4a" path="res://data/npcs/npc_guide_elder.tres" id="3_nmbxo"]
+[ext_resource type="Texture2D" uid="uid://b1pypikcyc721" path="res://assets/images/backgrounds/background.png" id="3_yi1on"]
 [ext_resource type="PackedScene" uid="uid://c050or76hbbmm" path="res://scenes/ui/dialogue_ui.tscn" id="6_nmbxo"]
+[ext_resource type="PackedScene" uid="uid://blp3ld5y1avd4" path="res://scenes/world/enemy.tscn" id="6_yiqu2"]
+[ext_resource type="Resource" uid="uid://breurmwku0w3f" path="res://data/enemies/night_wolf.tres" id="7_dhnmi"]
 [ext_resource type="PackedScene" uid="uid://fqwx4canuert" path="res://scenes/ui/alchemy_ui.tscn" id="7_gf0tn"]
 [ext_resource type="PackedScene" uid="uid://xqfuad6ir0qb" path="res://scenes/ui/quest_log_ui.tscn" id="8_daohi"]
 [ext_resource type="PackedScene" uid="uid://di6g2r07r273r" path="res://scenes/ui/cave_mansion_ui.tscn" id="9_kpvlf"]
+[ext_resource type="PackedScene" uid="uid://cs6hu2tv3vcej" path="res://scenes/ui/cultivation_method_ui.tscn" id="12_pe522"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -18,7 +23,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("1_8hm8w")
 script = ExtResource("1_fhhka")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_yi1on")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="World" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -27,126 +44,157 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 npc_data = ExtResource("3_nmbxo")
 
+[node name="NightWolf" parent="World" instance=ExtResource("6_yiqu2")]
+unique_name_in_owner = true
+visible = false
+enemy_data = ExtResource("7_dhnmi")
+
+[node name="DayNightOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.0392157)
+
+[node name="MainUI" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopBar" type="PanelContainer" parent="MainUI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="StatsContainer" type="HBoxContainer" parent="MainUI/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="CultivationLabel" type="Label" parent="MainUI/TopBar/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SpiritStoneLabel" type="Label" parent="MainUI/TopBar/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RealmLabel" type="Label" parent="MainUI/TopBar/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SpiritEnergyLabel" type="Label" parent="MainUI/TopBar/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MainUI/TopBar/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeLabel" type="Label" parent="MainUI/TopBar/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BottomBar" type="PanelContainer" parent="MainUI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ActionContainer" type="HBoxContainer" parent="MainUI/BottomBar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CultivateButton" type="Button" parent="MainUI/BottomBar/ActionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bế Quan Tu Luyện"
+
+[node name="RestButton" type="Button" parent="MainUI/BottomBar/ActionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Đả Tọa Tịnh Dưỡng"
+
+[node name="BreakthroughButton" type="Button" parent="MainUI/BottomBar/ActionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Đột Phá"
+
+[node name="ChallengeButton" type="Button" parent="MainUI/BottomBar/ActionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Khiêu Chiến Sư Huynh"
+
+[node name="SideMenu" type="PanelContainer" parent="MainUI"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = -143.0
+offset_bottom = 143.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="SystemButtonsContainer" type="VBoxContainer" parent="MainUI/SideMenu"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="InventoryButton" type="Button" parent="MainUI/SideMenu/SystemButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Túi Đồ"
+
+[node name="QuestLogButton" type="Button" parent="MainUI/SideMenu/SystemButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nhiệm Vụ"
+
+[node name="CaveMansionButton" type="Button" parent="MainUI/SideMenu/SystemButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Động Phủ"
+
+[node name="AlchemyButton" type="Button" parent="MainUI/SideMenu/SystemButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Luyện Đan"
+
+[node name="CultivationMethodButton" type="Button" parent="MainUI/SideMenu/SystemButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Công Pháp"
+
+[node name="SaveButton" type="Button" parent="MainUI/SideMenu/SystemButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lưu Game"
+
+[node name="LoadButton" type="Button" parent="MainUI/SideMenu/SystemButtonsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tải Game"
+
 [node name="CombatScene" parent="." instance=ExtResource("2_6gqhb")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-
-[node name="MainUI" type="Control" parent="."]
-unique_name_in_owner = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="StatsContainer" type="VBoxContainer" parent="MainUI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 104.0
-
-[node name="CultivationLabel" type="Label" parent="MainUI/StatsContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="SpiritStoneLabel" type="Label" parent="MainUI/StatsContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="RealmLabel" type="Label" parent="MainUI/StatsContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="SpiritEnergyLabel" type="Label" parent="MainUI/StatsContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="CultivateButton" type="Button" parent="MainUI"]
-layout_mode = 0
-offset_left = 444.0
-offset_top = 617.0
-offset_right = 593.0
-offset_bottom = 648.0
-text = "Bế Quan Tu Luyện"
-
-[node name="RestButton" type="Button" parent="MainUI"]
-layout_mode = 0
-offset_left = 615.0
-offset_top = 616.0
-offset_right = 771.0
-offset_bottom = 647.0
-text = "Đả Tọa Tịnh Dưỡng"
-
-[node name="BreakthroughButton" type="Button" parent="MainUI"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 825.0
-offset_top = 615.0
-offset_right = 895.0
-offset_bottom = 646.0
-text = "Đột Phá"
-
-[node name="ChallengeButton" type="Button" parent="MainUI"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 146.0
-offset_top = 617.0
-offset_right = 327.0
-offset_bottom = 648.0
-text = "Khiêu Chiến Sư Huynh"
-
-[node name="InventoryButton" type="Button" parent="MainUI"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1094.0
-offset_top = 312.0
-offset_right = 1152.0
-offset_bottom = 343.0
-text = "Túi Đồ"
-
-[node name="SaveButton" type="Button" parent="MainUI"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 948.0
-offset_top = -1.0
-offset_right = 1036.0
-offset_bottom = 30.0
-text = "Lưu Game"
-
-[node name="LoadButton" type="Button" parent="MainUI"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1069.0
-offset_top = -1.0
-offset_right = 1150.0
-offset_bottom = 30.0
-text = "Tải Game"
-
-[node name="AlchemyButton" type="Button" parent="MainUI"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1062.0
-offset_top = 227.0
-offset_right = 1153.0
-offset_bottom = 258.0
-text = "Luyện Đan"
-
-[node name="QuestLogButton" type="Button" parent="MainUI"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1.0
-offset_top = 389.0
-offset_right = 85.0
-offset_bottom = 420.0
-text = "Nhiệm Vụ"
-
-[node name="CaveMansionButton" type="Button" parent="MainUI"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1068.0
-offset_top = 168.0
-offset_right = 1151.0
-offset_bottom = 199.0
-text = "Động Phủ"
 
 [node name="InventoryScene" parent="." instance=ExtResource("3_kbhqf")]
 unique_name_in_owner = true
@@ -184,13 +232,19 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="MainUI/CultivateButton" to="." method="_on_cultivate_button_pressed"]
-[connection signal="pressed" from="MainUI/RestButton" to="." method="_on_rest_button_pressed"]
-[connection signal="pressed" from="MainUI/BreakthroughButton" to="." method="_on_breakthrough_button_pressed"]
-[connection signal="pressed" from="MainUI/ChallengeButton" to="." method="_on_challenge_button_pressed"]
-[connection signal="pressed" from="MainUI/InventoryButton" to="." method="_on_inventory_button_pressed"]
-[connection signal="pressed" from="MainUI/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="MainUI/LoadButton" to="." method="_on_load_button_pressed"]
-[connection signal="pressed" from="MainUI/AlchemyButton" to="." method="_on_alchemy_button_pressed"]
-[connection signal="pressed" from="MainUI/QuestLogButton" to="." method="_on_quest_log_button_pressed"]
-[connection signal="pressed" from="MainUI/CaveMansionButton" to="." method="_on_cave_mansion_button_pressed"]
+[node name="CultivationMethodUI" parent="." instance=ExtResource("12_pe522")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MainUI/BottomBar/ActionContainer/CultivateButton" to="." method="_on_cultivate_button_pressed"]
+[connection signal="pressed" from="MainUI/BottomBar/ActionContainer/RestButton" to="." method="_on_rest_button_pressed"]
+[connection signal="pressed" from="MainUI/BottomBar/ActionContainer/BreakthroughButton" to="." method="_on_breakthrough_button_pressed"]
+[connection signal="pressed" from="MainUI/BottomBar/ActionContainer/ChallengeButton" to="." method="_on_challenge_button_pressed"]
+[connection signal="pressed" from="MainUI/SideMenu/SystemButtonsContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="MainUI/SideMenu/SystemButtonsContainer/QuestLogButton" to="." method="_on_quest_log_button_pressed"]
+[connection signal="pressed" from="MainUI/SideMenu/SystemButtonsContainer/CaveMansionButton" to="." method="_on_cave_mansion_button_pressed"]
+[connection signal="pressed" from="MainUI/SideMenu/SystemButtonsContainer/AlchemyButton" to="." method="_on_alchemy_button_pressed"]
+[connection signal="pressed" from="MainUI/SideMenu/SystemButtonsContainer/CultivationMethodButton" to="." method="_on_cultivation_method_button_pressed"]
+[connection signal="pressed" from="MainUI/SideMenu/SystemButtonsContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MainUI/SideMenu/SystemButtonsContainer/LoadButton" to="." method="_on_load_button_pressed"]

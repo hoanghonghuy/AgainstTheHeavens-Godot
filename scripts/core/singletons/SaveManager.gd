@@ -38,7 +38,12 @@ func save_game():
 	save_data["quest_progress"] = PlayerState.quest_progress
 	save_data["building_levels"] = PlayerState.building_levels
 	
-	# Ghi lại dấu thời gian hiện tại (tính bằng giây)
+	# === DỮ LIỆU THỜI GIAN  ===
+	save_data["current_day"] = TimeManager.current_day
+	save_data["current_hour"] = TimeManager.current_hour
+	save_data["current_minute"] = TimeManager.current_minute
+	
+	# Ghi lại dấu thời gian hệ thống để tính offline progress
 	save_data["last_saved_timestamp"] = Time.get_unix_time_from_system()
 
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -122,7 +127,7 @@ func load_game():
 		"spirit_gathering_array": 1 # Giá trị mặc định nếu không tìm thấy
 	})
 	
-	# === BẮT ĐẦU KHỐI LOGIC "TU LUYỆN NGOẠI TUYẾN" (MỚI) ===
+	# === BẮT ĐẦU KHỐI LOGIC "TU LUYỆN NGOẠI TUYẾN" ===
 	var last_saved_time = save_data.get("last_saved_timestamp", 0)
 	if last_saved_time > 0:
 		var current_time = Time.get_unix_time_from_system()
@@ -150,6 +155,11 @@ func load_game():
 			print("Đã nhận được %.1f Linh Khí từ tu luyện ngoại tuyến." % total_spirit_energy_gained)
 			
 	# === KẾT THÚC KHỐI LOGIC "TU LUYỆN NGOẠI TUYẾN" ===
+	
+	# Lấy thời gian đã lưu và cập nhật cho TimeManager
+	TimeManager.current_day = save_data.get("current_day", 1)
+	TimeManager.current_hour = save_data.get("current_hour", 6)
+	TimeManager.current_minute = save_data.get("current_minute", 0.0)
 	
 	print("Tải game thành công!")
 

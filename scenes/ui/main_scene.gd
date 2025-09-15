@@ -19,6 +19,10 @@ extends Control
 @onready var alchemy_ui: Control = %AlchemyUI
 @onready var quest_log_ui: Control = %QuestLogUI
 @onready var cave_mansion_ui: Control = %CaveMansionUI
+@onready var cultivation_method_ui: Control = %CultivationMethodUI
+@onready var time_label: Label = %TimeLabel
+@onready var day_night_overlay: ColorRect = %DayNightOverlay
+@onready var night_wolf: Area2D = %NightWolf
 
 # Tham chiếu đến các nút bấm và label trong MainUI
 @onready var cultivation_label: Label = %CultivationLabel
@@ -28,6 +32,15 @@ extends Control
 @onready var breakthrough_button: Button = %BreakthroughButton
 @onready var save_button: Button = %SaveButton
 @onready var load_button: Button = %LoadButton
+
+
+# Từ điển chứa các màu sắc cho từng buổi trong ngày
+const DAY_PHASE_COLORS = {
+	TimeManager.DayPhase.BINH_MINH: Color(1, 0.8, 0.6, 0.1),  # Vàng cam nhạt
+	TimeManager.DayPhase.BAN_NGAY: Color(1, 1, 1, 0.0),      # Hoàn toàn trong suốt
+	TimeManager.DayPhase.HOANG_HON: Color(0.8, 0.4, 0.2, 0.2), # Đỏ cam đậm
+	TimeManager.DayPhase.BAN_DEM: Color(0.1, 0.1, 0.3, 0.4)   # Xanh đen đậm
+}
 
 #====================================================#
 #                  HÀM KHỞI TẠO CỦA GODOT              #
@@ -44,17 +57,29 @@ func _ready() -> void:
 	quest_log_ui.closed.connect(_on_quest_log_closed)
 	cave_mansion_ui.closed.connect(_on_cave_mansion_closed)
 	PlayerState.stats_changed.connect(update_stats_display)
+	cultivation_method_ui.closed.connect(_on_cultivation_method_closed)
+	TimeManager.time_changed.connect(_on_time_changed)
+	TimeManager.day_phase_changed.connect(_on_day_phase_changed)
 	
-	# Tự động tìm và kết nối tín hiệu cho tất cả NPC trong World
-	for npc in world.get_children():
-		if npc.has_signal("interacted"):
-			npc.interacted.connect(_on_npc_interacted)
-	
+	## Tự động tìm và kết nối tín hiệu cho tất cả NPC trong World
+	#for npc in world.get_children():
+		#if npc.has_signal("interacted"):
+			#npc.interacted.connect(_on_npc_interacted)
+			
+	# Tự động tìm và kết nối tín hiệu cho tất cả các đối tượng trong World
+	for child in world.get_children():
+		if child.has_signal("interacted"): # Dành cho NPC
+			child.interacted.connect(_on_npc_interacted)
+		elif child.has_signal("combat_initiated"): # DÀNH CHO KẺ ĐỊCH
+			child.combat_initiated.connect(_on_enemy_combat_initiated)
+			
 	# Vô hiệu hóa nút Tải Game nếu file save không tồn tại
 	load_button.disabled = not SaveManager.has_save_file()
 	
 	# Cập nhật hiển thị chỉ số lần đầu tiên
 	update_stats_display()
+	# Cập nhật hiển thị thời gian ngay lập tức khi game bắt đầu
+	_on_time_changed(TimeManager.current_day, TimeManager.current_hour)
 
 #====================================================#
 #               QUẢN LÝ CÁC MÀN HÌNH & TƯƠNG TÁC      #
@@ -62,21 +87,24 @@ func _ready() -> void:
 
 # Được gọi khi một NPC phát tín hiệu "interacted"
 func _on_npc_interacted(npc_data: NPCData):
-	# Dòng print để kiểm tra dữ liệu nhận được
-	print("MainScene đã nhận tín hiệu từ NPC: ", npc_data.npcName)
-	# SỬA LẠI: In ra số lượng trang hội thoại thay vì nội dung
-	print("--> Số lượng trang hội thoại nhận được: ", npc_data.dialogue_pages.size())
-
-	# Kiểm tra xem dữ liệu có hợp lệ và có trang hội thoại nào không
-	if npc_data and not npc_data.dialogue_pages.is_empty():
-		main_ui.hide() # Ẩn giao diện chính để tránh click nhầm
-		dialogue_blocker.show()
-		dialogue_ui.start_dialogue(npc_data.dialogue_pages)
+	var dialogue_script_to_play = []
+	
+	# Logic quyết định xem nên nói câu gì
+	var quest_id = "quest_first_steps" # Tạm thời hardcode, sau này sẽ lấy từ NPCData
+	
+	if PlayerState.is_quest_completable(quest_id):
+		dialogue_script_to_play = npc_data.dialogue_scripts.get("quest_complete")
+	elif PlayerState.quest_progress.has(quest_id):
+		dialogue_script_to_play = npc_data.dialogue_scripts.get("quest_inprogress")
 	else:
-		if not npc_data:
-			print("LỖI: Dữ liệu NPC nhận được là rỗng!")
-		else:
-			print("LỖI: NPC '%s' không có trang hội thoại nào." % npc_data.npcName)
+		dialogue_script_to_play = npc_data.dialogue_scripts.get("default")
+
+	if not dialogue_script_to_play.is_empty():
+		main_ui.hide()
+		dialogue_blocker.show()
+		dialogue_ui.start_dialogue(dialogue_script_to_play)
+	else:
+		print("Lỗi: Không tìm thấy kịch bản hội thoại phù hợp cho NPC.")
 			
 			
 # Được gọi khi màn chắn VÔ HÌNH được click
@@ -185,7 +213,17 @@ func update_stats_display() -> void:
 func _on_cultivate_button_pressed() -> void:
 	if PlayerState.spiritEnergy >= 5:
 		PlayerState.spiritEnergy -= 5
-		PlayerState.cultivationPoints += 1.5
+		
+		# LOGIC MỚI: Lấy hiệu quả từ công pháp đang kích hoạt
+		var active_method_id = PlayerState.activeCultivationMethodId
+		var method_data: CultivationMethodData = Database.cultivation_methods.get(active_method_id)
+		
+		var cp_gain = 0.0 # Mặc định không nhận được gì
+		if method_data and method_data.passiveEffects.has("cultivationPoints_per_action"):
+			cp_gain = method_data.passiveEffects["cultivationPoints_per_action"]
+			
+		PlayerState.cultivationPoints += cp_gain
+		
 		update_stats_display()
 
 func _on_rest_button_pressed() -> void:
@@ -207,6 +245,52 @@ func _on_dialogue_option_selected(option_data: Dictionary):
 		PlayerState.accept_quest(quest_id)
 		# Sau khi nhận quest, đóng hội thoại
 		_on_dialogue_close_requested()
+	elif action == "complete_quest":
+		var quest_id = "quest_first_steps" # Tạm thời hardcode
+		PlayerState.complete_quest(quest_id)
+		_on_dialogue_close_requested()	
 		
 	elif action == "close_dialogue":
 		_on_dialogue_close_requested()
+
+func _on_cultivation_method_button_pressed() -> void:
+	cultivation_method_ui.open_panel()
+	main_ui.hide()
+	world.hide()
+
+func _on_cultivation_method_closed() -> void:
+	main_ui.show()
+	world.show()
+
+#====================================================#
+#               QUẢN LÝ THỜI GIAN                    #
+#====================================================#
+
+# Được gọi mỗi khi giờ trong game thay đổi
+func _on_time_changed(current_day, current_hour):
+	time_label.text = TimeManager.get_time_string()
+
+# Được gọi mỗi khi buổi trong ngày thay đổi (Bình Minh, Ban Ngày...)
+func _on_day_phase_changed(new_phase):
+	# Dùng Tween để chuyển màu mượt mà
+	var tween = create_tween()
+	tween.tween_property(day_night_overlay, "color", DAY_PHASE_COLORS[new_phase], 2.0) # Chuyển màu trong 2 giây
+	if new_phase != TimeManager.DayPhase.BAN_DEM and night_wolf.visible:
+		night_wolf.hide()
+		#add_log_message_to_main_screen("Trời sáng, Dạ Lang đã rút lui vào bóng tối.")
+
+#====================================================#
+#               QUẢN LÝ SỰ KIỆN                      #
+#====================================================#
+
+func _on_event_triggered(event_id: String):
+	if event_id == "event_night_beast_spawn":
+		# Nếu sói đêm chưa xuất hiện, cho nó hiện ra
+		if not night_wolf.visible:
+			night_wolf.show()
+			#add_log_message_to_main_screen("Trời tối, một con Dạ Lang đã xuất hiện gần đây!")
+
+func _on_enemy_combat_initiated(enemy_data: EnemyData):
+	main_ui.hide()
+	world.hide()
+	combat_scene.start_combat(enemy_data)

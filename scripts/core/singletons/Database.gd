@@ -14,6 +14,7 @@ var npcs: Dictionary = {}          # Từ điển tra cứu NPC bằng ID
 var recipes: Dictionary = {}       # Từ điển tra cứu Công Thức bằng ID
 var quests: Dictionary = {}
 var buildings: Dictionary = {}
+var cultivation_methods: Dictionary = {}
 
 # Hàm _ready() được gọi một lần khi game bắt đầu, sau khi tất cả các node được tải.
 # Đây là nơi hoàn hảo để nạp toàn bộ dữ liệu.
@@ -68,7 +69,16 @@ func _ready() -> void:
 		# 7. Tải và xử lý dữ liệu Công Trình Động Phủ
 		buildings = game_data_resource.buildings
 		
-		# In ra thông báo tổng kết để xác nhận mọi thứ hoạt động
-		print("Cơ sở dữ liệu game đã được tải thành công! (%d cảnh giới, %d kỹ năng, %d vật phẩm, %d NPC, %d công thức, %d nhiệm vụ)" % [realms.size(), skills.size(), items.size(), npcs.size(), recipes.size(), quests.size()])
+# LOGIC MỚI: Tải và xử lý dữ liệu Công Pháp
+		if game_data_resource.cultivation_methods: # Kiểm tra xem mảng có tồn tại không
+			for method_data in game_data_resource.cultivation_methods:
+				if method_data and not method_data.id.is_empty():
+					if not cultivation_methods.has(method_data.id):
+						cultivation_methods[method_data.id] = method_data
+					else:
+						print("Cảnh báo Database: Trùng lặp Cultivation Method ID '%s'" % method_data.id)
+
+		# Dòng print tổng kết đã được cập nhật
+		print("Cơ sở dữ liệu game đã được tải thành công! (%d cảnh giới, %d kỹ năng, %d vật phẩm, %d NPC, %d công thức, %d nhiệm vụ, %d loại công trình, %d công pháp)" % [realms.size(), skills.size(), items.size(), npcs.size(), recipes.size(), quests.size(), buildings.size(), cultivation_methods.size()])
 	else:
 		print("LỖI NGHIÊM TRỌNG: KHÔNG THỂ TẢI FILE 'res://data/game_data.tres'!")

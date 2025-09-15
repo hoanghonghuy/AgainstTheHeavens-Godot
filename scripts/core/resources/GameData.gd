@@ -9,3 +9,4 @@ extends Resource
 @export var recipes: Array[RecipeData]
 @export var quests: Array[QuestData]
 @export var buildings: Dictionary = {}
+@export var cultivation_methods: Array[CultivationMethodData]

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3 uid="uid://breurmwku0w3f"]
+
+[ext_resource type="Script" uid="uid://dsofqfla6rmsi" path="res://scripts/core/resources/EnemyData.gd" id="1_kg28m"]
+[ext_resource type="Texture2D" uid="uid://dx2mdrjaxmroa" path="res://icon.svg" id="2_08igc"]
+
+[resource]
+script = ExtResource("1_kg28m")
+enemyName = "Dạ Lang"
+sprite = ExtResource("2_08igc")
+maxHp = 120
+attackPower = 15
+defense = 5
+speed = 6
+cpReward = 60.0
+lootTable = {}
+metadata/_custom_type_script = "uid://dsofqfla6rmsi"

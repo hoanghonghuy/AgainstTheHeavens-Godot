@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CultivationMethodData" load_steps=2 format=3 uid="uid://brnvay37yskgt"]
+
+[ext_resource type="Script" uid="uid://ba13vwwiala26" path="res://scripts/core/resources/CultivationMethodData.gd" id="1_tuv5m"]
+
+[resource]
+script = ExtResource("1_tuv5m")
+id = "cm_iron_body_art"
+methodName = "Thiết Bì Quyết"
+description = "Một công pháp sơ cấp Luyện Thể, giúp hấp thụ linh khí để cường hóa da thịt. Tu vi tăng chậm nhưng tăng cường phòng ngự. "
+rank = 0
+realmRequirement = "Luyện Khí Kỳ Tầng Một"
+spiritRootRequirement = ""
+passiveEffects = {
+"bonus_defense": 2,
+"cultivationPoints_per_action": 0.8
+}
+metadata/_custom_type_script = "uid://ba13vwwiala26"

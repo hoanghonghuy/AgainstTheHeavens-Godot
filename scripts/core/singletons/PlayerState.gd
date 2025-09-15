@@ -6,8 +6,14 @@ extends Node
 # Sẽ được phát ra mỗi khi một chỉ số được cập nhật bởi hiệu ứng.
 signal stats_changed
 
+signal item_crafted(item_id: String, quantity: int)
+
 # Biến theo dõi vị trí của người chơi trong danh sách cảnh giới
 var currentRealmIndex: int = 0
+
+var current_day: int = 1
+var current_hour: int = 6
+var current_minute: float = 0.0
 
 #== Primary Stats (Chỉ Số Cơ Bản) ==
 var cultivationPoints: float = 0.0 # Điểm tu vi, tương tự EXP.
@@ -62,6 +68,26 @@ var quest_progress: Dictionary = {}
 var building_levels: Dictionary = {
 	"spirit_gathering_array": 1
 }
+
+#== Cultivation Methods (Công Pháp) ==
+# Danh sách ID các công pháp đã học
+var learnedCultivationMethods: Array = ["cm_basic_qi_gathering_art", "cm_iron_body_art"]
+# ID của công pháp đang được kích hoạt để tu luyện
+var activeCultivationMethodId: String = "cm_basic_qi_gathering_art"
+
+func _ready():
+		item_crafted.connect(_on_item_crafted)
+
+func _on_item_crafted(item_id: String, quantity: int):
+	for quest_id in quest_progress:
+		var quest_data: QuestData = Database.quests.get(quest_id)
+		if not quest_data: continue
+		for objective in quest_data.objectives:
+			if objective["type"] == "craft" and objective["target_id"] == item_id:
+				var progress_id = "%s_%s" % [objective["type"], objective["target_id"]]
+				var current_progress = quest_progress[quest_id].get(progress_id, 0)
+				quest_progress[quest_id][progress_id] = current_progress + quantity
+				print("Cập nhật tiến trình nhiệm vụ '%s': %s (%d/%d)" % [quest_data.title, item_id, quest_progress[quest_id][progress_id], objective["quantity"]])
 
 func attempt_breakthrough() -> bool:
 	var next_realm_index = currentRealmIndex + 1
@@ -142,3 +168,39 @@ func _process(delta: float) -> void:
 	# 4. Nếu có bất kỳ chỉ số nào thay đổi, hãy phát tín hiệu
 	if stats_did_change:
 		stats_changed.emit()
+
+# Hàm kiểm tra xem một nhiệm vụ đã đủ điều kiện để trả chưa
+func is_quest_completable(quest_id: String) -> bool:
+	if not quest_progress.has(quest_id): return false
+
+	var quest_data: QuestData = Database.quests.get(quest_id)
+	var player_progress = quest_progress[quest_id]
+
+	for objective in quest_data.objectives:
+		var progress_id = "%s_%s" % [objective["type"], objective["target_id"]]
+		if player_progress.get(progress_id, 0) < objective["quantity"]:
+			return false # Nếu còn mục tiêu chưa hoàn thành -> false
+
+	return true # Tất cả mục tiêu đã xong
+
+# Hàm hoàn thành nhiệm vụ và nhận thưởng
+func complete_quest(quest_id: String):
+	if not is_quest_completable(quest_id): return
+
+	var quest_data: QuestData = Database.quests.get(quest_id)
+
+	# Trao thưởng
+	for reward_key in quest_data.rewards:
+		var reward_value = quest_data.rewards[reward_key]
+		if reward_key == "cp":
+			cultivationPoints += reward_value
+		elif reward_key == "spirit_stones":
+			spiritStones += reward_value
+		else: # Giả định là vật phẩm
+			inventory[reward_key] = inventory.get(reward_key, 0) + reward_value
+
+	# Xóa nhiệm vụ khỏi danh sách đang làm
+	quest_progress.erase(quest_id)
+	# TODO: Thêm vào danh sách đã hoàn thành để tránh nhận lại
+
+	print("Hoàn thành nhiệm vụ: ", quest_data.title)

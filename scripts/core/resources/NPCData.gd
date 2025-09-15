@@ -1,4 +1,4 @@
-# NPCData.gd
+# res://scripts/core/resources/NPCData.gd
 class_name NPCData
 extends Resource
 
@@ -6,5 +6,7 @@ extends Resource
 @export var npcName: String = "Tên NPC"
 @export var sprite: Texture2D
 
-# Mỗi phần tử trong Array này sẽ là một Dictionary, đại diện cho một câu thoại.
-@export var dialogue_pages: Array = []
+# Dùng Dictionary để lưu nhiều kịch bản hội thoại
+# Key: Tên kịch bản (ví dụ: "default", "quest_inprogress", "quest_complete")
+# Value: Mảng các trang hội thoại (Array of Dictionaries)
+@export var dialogue_scripts: Dictionary = {}

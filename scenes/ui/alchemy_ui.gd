@@ -125,6 +125,9 @@ func _on_craft_button_pressed():
 	var output_qty = selected_recipe.outputQuantity
 	PlayerState.inventory[output_id] = PlayerState.inventory.get(output_id, 0) + output_qty
 	
+	# Thông báo cho toàn bộ game biết rằng một vật phẩm đã được chế tạo
+	PlayerState.item_crafted.emit(output_id, output_qty)
+	
 	print("Luyện chế thành công %s!" % Database.items[output_id].itemName)
 	
 	_update_all_displays()
