@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqe83xgme6x5k"]
+
+[ext_resource type="Script" uid="uid://cm6mp1istwt8t" path="res://data/locations/map_ui.gd" id="1_r00p4"]
+
+[node name="MapUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r00p4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="MainLayout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="LocationList" type="VBoxContainer" parent="MainLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="DetailsPanel" type="PanelContainer" parent="MainLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+
+[node name="DetailsLayout" type="VBoxContainer" parent="MainLayout/DetailsPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LocationNameLabel" type="Label" parent="MainLayout/DetailsPanel/DetailsLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LocationDescriptionLabel" type="Label" parent="MainLayout/DetailsPanel/DetailsLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TravelButton" type="Button" parent="MainLayout/DetailsPanel/DetailsLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dịch Chuyển"
+
+[node name="CloseButton" type="Button" parent="MainLayout/DetailsPanel/DetailsLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Đóng"

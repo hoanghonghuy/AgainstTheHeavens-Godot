@@ -23,6 +23,7 @@ extends Control
 @onready var time_label: Label = %TimeLabel
 @onready var day_night_overlay: ColorRect = %DayNightOverlay
 @onready var night_wolf: Area2D = %NightWolf
+@onready var map_ui: Control = %MapUI
 
 # Tham chiếu đến các nút bấm và label trong MainUI
 @onready var cultivation_label: Label = %CultivationLabel
@@ -32,7 +33,7 @@ extends Control
 @onready var breakthrough_button: Button = %BreakthroughButton
 @onready var save_button: Button = %SaveButton
 @onready var load_button: Button = %LoadButton
-
+@onready var map_button: Button = %MapButton
 
 # Từ điển chứa các màu sắc cho từng buổi trong ngày
 const DAY_PHASE_COLORS = {
@@ -294,3 +295,8 @@ func _on_enemy_combat_initiated(enemy_data: EnemyData):
 	main_ui.hide()
 	world.hide()
 	combat_scene.start_combat(enemy_data)
+
+
+func _on_map_button_pressed() -> void:
+	main_ui.hide()
+	map_ui.show()

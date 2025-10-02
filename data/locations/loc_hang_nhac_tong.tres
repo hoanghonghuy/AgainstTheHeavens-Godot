@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="LocationData" load_steps=2 format=3 uid="uid://ccr1kmseesk3u"]
+
+[ext_resource type="Script" uid="uid://c0uebr5u0qvc0" path="res://scripts/core/resources/LocationData.gd" id="1_8h5b6"]
+
+[resource]
+script = ExtResource("1_8h5b6")
+location_id = "hang_nhac_tong"
+location_name = "Hằng Nhạc Tông"
+description = "Nơi các đệ tử Hằng Nhạc Tông tu luyện."
+npc_ids = Array[String](["npc_truong_lao"])
+enemy_ids = Array[String]([])
+metadata/_custom_type_script = "uid://c0uebr5u0qvc0"
